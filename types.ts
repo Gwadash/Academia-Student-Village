@@ -4,6 +4,7 @@ export interface Feature {
   icon: React.ReactNode;
   title: string;
   description: string;
+  image?: string;
 }
 
 export interface GalleryImage {

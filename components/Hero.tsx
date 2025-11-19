@@ -2,13 +2,35 @@ import React from 'react';
 import { MapPin, Star } from 'lucide-react';
 import { ACADEMIA_CONTACT } from '../constants';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onApplyClick?: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onApplyClick }) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleApplyClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onApplyClick) {
+      onApplyClick();
+    } else {
+       const element = document.querySelector('#contact');
+       if (element) element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://picsum.photos/1920/1080?grayscale" 
+          src="https://placehold.co/1920x1080/1f2937/ea580c?text=Main+Gate+Image+Here" 
           alt="Academia Student Village Campus" 
           className="w-full h-full object-cover"
         />
@@ -34,15 +56,16 @@ const Hero: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a 
-              href="#contact" 
+            <button 
+              onClick={handleApplyClick}
               className="bg-brand-orange text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-orange-700 transition-all transform hover:scale-105 shadow-lg shadow-orange-600/40"
             >
               Book Your Room
-            </a>
+            </button>
             <a 
               href="#gallery" 
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-white hover:text-brand-dark transition-all"
+              onClick={(e) => handleNavClick(e, '#gallery')}
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-white hover:text-brand-dark transition-all inline-block"
             >
               View Gallery
             </a>

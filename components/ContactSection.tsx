@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import { ACADEMIA_CONTACT } from '../constants';
 import { ContactFormState } from '../types';
 
@@ -61,7 +61,13 @@ const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold">Email Us</h4>
-                  <p className="text-gray-400 mt-1">{ACADEMIA_CONTACT.email}</p>
+                  <div className="flex flex-col mt-1">
+                    {ACADEMIA_CONTACT.emails.map((email, idx) => (
+                        <a key={idx} href={`mailto:${email}`} className="text-gray-400 hover:text-brand-orange transition-colors">
+                            {email}
+                        </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
